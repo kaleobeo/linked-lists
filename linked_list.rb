@@ -28,6 +28,8 @@ class LinkedList
   end
 
   def at(index)
+    return nil if index > @size - 1 || index.negative?
+
     current_node = @head
     current_index = 0
     until current_index == index
@@ -35,6 +37,14 @@ class LinkedList
       current_node = current_node.next_node unless current_node.nil?
     end
     current_node
+  end
+
+  def pop
+    new_final_node = at(size - 2)
+    @tail = new_final_node
+    new_final_node.next_node = nil unless new_final_node.nil?
+    @size -= 1
+    @head = nil if @tail.nil?
   end
 end
 
@@ -47,3 +57,10 @@ class Node
     @next_node = nil
   end
 end
+
+test = LinkedList.new
+test.append('a')
+test.append('b')
+test.append('c')
+
+3.times { test.pop }
