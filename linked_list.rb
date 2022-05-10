@@ -91,7 +91,9 @@ class LinkedList
   def remove_at(index)
     prev_node = at(index - 1)
     @size -= 1 unless size.zero?
-    prev_node&.next_node = prev_node&.next_node&.next_node 
+    prev_node&.next_node = prev_node&.next_node&.next_node
+    @tail = prev_node if prev_node.next_node.nil?
+    self
   end
 end
 
@@ -114,8 +116,11 @@ test.append('c')
 
 p test.to_s
 test.insert_at('hello', 1)
-test.pop
+test.remove_at(3)
 p test.to_s
+p test.tail.value
+
+# p test.to_s
 #p test.to_s
 #test.remove_at(2)
 #p test.to_s
